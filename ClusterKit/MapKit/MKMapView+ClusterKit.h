@@ -30,6 +30,8 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @interface MKMapView (ClusterKit) <CKMap>
 
+- (void)hideCluster:(CKCluster *)cluster;
+
 /**
  Shows the specified cluster centered on screen at the greatest possible zoom level.
  

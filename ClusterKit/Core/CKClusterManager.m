@@ -231,7 +231,7 @@ BOOL CLLocationCoordinateEqual(CLLocationCoordinate2D coordinate1, CLLocationCoo
                                  from:oldCluster.coordinate
                                    to:newCluster.coordinate
                            completion:^(BOOL finished) {
-                               [self.map removeCluster:oldCluster];
+                               [self removeCluster:oldCluster];
                            }];
                 
                 [toRemove removeObject:oldCluster];
@@ -240,13 +240,25 @@ BOOL CLLocationCoordinateEqual(CLLocationCoordinate2D coordinate1, CLLocationCoo
     }
     
     for (CKCluster *cluster in toRemove) {
-        [self.map moveCluster:cluster from:cluster.coordinate to:cluster.coordinate completion:^(BOOL finished) {
-            [self.map removeCluster:cluster];
-        }];
+        [self removeCluster:cluster];
     }
     
     _clusters = clusters.mutableCopy;
     _visibleMapRect = visibleMapRect;
+}
+
+-(void)removeCluster:(CKCluster *)cluster {
+    [UIView animateWithDuration:0.1
+                          delay:0
+                        options:0
+                     animations:^{
+                         if ([self.map respondsToSelector:@selector(hideCluster:)]) {
+                             [self.map hideCluster:cluster];
+                         }
+                     }
+                     completion:^(BOOL finished) {
+                         [self.map removeCluster:cluster];
+                     }];
 }
 
 #pragma mark <KPAnnotationTreeDelegate>

@@ -31,6 +31,10 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol CKMap <NSObject>
 
+@optional
+
+- (void)hideCluster:(CKCluster *)cluster;
+
 @required
 
 /**

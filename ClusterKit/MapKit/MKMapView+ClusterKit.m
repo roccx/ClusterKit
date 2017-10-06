@@ -56,6 +56,10 @@
     return log2(360 * ((self.frame.size.width/256) / self.region.span.longitudeDelta));
 }
 
+- (void)hideCluster:(CKCluster *)cluster {
+    [[self viewForAnnotation:cluster] setHidden:YES];
+}
+
 - (void)addCluster:(CKCluster *)cluster {
     [self addAnnotation:cluster];
 }
