@@ -240,7 +240,9 @@ BOOL CLLocationCoordinateEqual(CLLocationCoordinate2D coordinate1, CLLocationCoo
     }
     
     for (CKCluster *cluster in toRemove) {
-        [self.map removeCluster:cluster];
+        [self.map moveCluster:cluster from:cluster.coordinate to:cluster.coordinate completion:^(BOOL finished) {
+            [self.map removeCluster:cluster];
+        }]
     }
     
     _clusters = clusters.mutableCopy;
